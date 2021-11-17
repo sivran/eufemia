@@ -33,6 +33,10 @@ import GlobalStatusController, {
 } from './GlobalStatusController'
 import GlobalStatusProvider from './GlobalStatusProvider'
 import Icon from '../icon/Icon'
+/* import {
+  information_bubble as InfoIcon,
+  exclamation_triangle as ErrorIcon,
+} from '../../icons' */
 /**
  * Because of the new icons, which do not fit into the current GlobalStatus UI,
  * we have to have them inlined here in this component. Down below.
@@ -114,7 +118,7 @@ export default class GlobalStatus extends React.PureComponent {
     text: null,
     items: [],
     icon: 'error',
-    icon_size: 'large',
+    icon_size: 'medium',
     state: 'error',
     show: 'auto',
     autoscroll: true,
@@ -166,7 +170,13 @@ export default class GlobalStatus extends React.PureComponent {
           IconToLoad = ErrorIcon
       }
 
-      icon = <Icon icon={<IconToLoad title={null} />} size={icon_size} />
+      icon = (
+        <Icon
+          icon={<IconToLoad />}
+          size={icon_size}
+          inherit_color={false}
+        />
+      )
     }
 
     return icon
@@ -716,7 +726,7 @@ export default class GlobalStatus extends React.PureComponent {
     const noAnimation = isTrue(no_animation)
     const itemsToRender = props.items || []
     const contentToRender = GlobalStatus.getContent(props)
-    const style = state === 'info' ? 'sea-green' : 'fire-red'
+    const style = state === 'info' ? 'pistachio' : 'fire-red-8'
 
     /**
      * Show aria-live="assertive" when:
@@ -774,25 +784,26 @@ export default class GlobalStatus extends React.PureComponent {
                   on_click={this.closeHandler}
                   text={close_text}
                   title={close_text}
+                  size="medium"
                 />
               )}
             </p>
-          </Section>
-        )}
-        {hasContent && (
-          <Section
-            element="div"
-            style_type="white"
-            className="dnb-global-status__message"
-          >
-            <div className="dnb-global-status__message__content">
-              {typeof contentToRender === 'string' ? (
-                <p className="dnb-p">{contentToRender}</p>
-              ) : (
-                contentToRender
-              )}
-              {renderedItems}
-            </div>
+            {hasContent && (
+              <Section
+                element="div"
+                style_type={style}
+                className="dnb-global-status__message"
+              >
+                <div className="dnb-global-status__message__content">
+                  {typeof contentToRender === 'string' ? (
+                    <p className="dnb-p">{contentToRender}</p>
+                  ) : (
+                    contentToRender
+                  )}
+                  {renderedItems}
+                </div>
+              </Section>
+            )}
             <Hr fullscreen />
           </Section>
         )}
@@ -843,65 +854,71 @@ const isElementVisible = (elem, callback, delayFallback = 1e3) => {
 
 const ErrorIcon = (props) => (
   <svg
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     {props && props.title && <title>{props.title}</title>}
     <path
-      d="M16 25a.5.5 0 100 1 .5.5 0 000-1v0"
-      stroke="#000"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      d="M23.6248 17.8641C23.8956 18.4051 24.0235 19.0064 23.9964 19.6108C23.9694 20.2152 23.7882 20.8026 23.4702 21.3172C23.1522 21.8319 22.7078 22.2566 22.1794 22.5512C21.651 22.8457 21.056 23.0002 20.451 23H3.54821C2.94321 23.0004 2.34816 22.846 1.81968 22.5515C1.29121 22.257 0.846878 21.8321 0.528971 21.3173C0.211065 20.8026 0.0301558 20.215 0.0034553 19.6106C-0.0232452 19.0061 0.10515 18.4049 0.376429 17.8641L8.82584 2.96239C9.12038 2.37276 9.57333 1.87683 10.1339 1.53022C10.6945 1.1836 11.3405 1 11.9996 1C12.6587 1 13.3047 1.1836 13.8653 1.53022C14.4259 1.87683 14.8789 2.37276 15.1734 2.96239L23.6248 17.8641Z"
+      fill="#DC2A2A"
     />
     <path
-      d="M16 21V11"
-      stroke="#000"
-      strokeWidth="1.5"
-      strokeLinecap="round"
+      d="M12.0001 16.2858C11.7458 16.2858 11.4972 16.3612 11.2858 16.5024C11.0743 16.6437 10.9095 16.8445 10.8122 17.0795C10.7149 17.3144 10.6895 17.5729 10.7391 17.8223C10.7887 18.0717 10.9111 18.3008 11.0909 18.4806C11.2707 18.6604 11.4998 18.7829 11.7492 18.8325C11.9986 18.8821 12.2572 18.8566 12.4921 18.7593C12.727 18.662 12.9278 18.4972 13.0691 18.2858C13.2104 18.0743 13.2858 17.8258 13.2858 17.5715C13.2858 17.2305 13.1503 16.9035 12.9092 16.6623C12.6681 16.4212 12.3411 16.2858 12.0001 16.2858Z"
+      fill="white"
     />
     <path
-      clipRule="evenodd"
-      d="M18.161 2.347a2.408 2.408 0 00-4.322 0L1.208 28.077A2.028 2.028 0 003.029 31h25.942a2.028 2.028 0 001.821-2.923l-12.63-25.73z"
-      stroke="#000"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      d="M11.9995 13.8179V8.81836"
+      stroke="white"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
     />
   </svg>
 )
+
 ErrorIcon.propTypes = {
   title: PropTypes.string,
 }
+
 ErrorIcon.defaultProps = {
   title: 'error',
 }
 
 const InfoIcon = (props) => (
   <svg
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
+    width="25"
+    height="24"
+    viewBox="0 0 25 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     {props && props.title && <title>{props.title}</title>}
     <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M10.1 1.08A14.75 14.75 0 00.26 15.01a14.73 14.73 0 0022.16 12.74l8.27 3.94a.75.75 0 001-1l-3.94-8.27A14.75 14.75 0 0010.1 1.08zM1.76 15.01a13.25 13.25 0 1124.5 6.97.75.75 0 00-.04.72l3.2 6.73-6.72-3.2a.75.75 0 00-.72.04A13.23 13.23 0 011.76 15zM13.38 7.9a1.31 1.31 0 112.63 0 1.31 1.31 0 01-2.63 0zm-1.13 5.07c0-.41.34-.75.75-.75h1.13c1.04 0 1.88.85 1.88 1.88v5.64c0 .84.67 1.51 1.5 1.51h1.13a.75.75 0 110 1.5h-1.13a3 3 0 01-3-3V14.1c0-.2-.17-.38-.38-.38H13a.75.75 0 01-.75-.75z"
-      fill="#000"
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M11.2682 5.43045e-05C9.52665 -0.002761 7.80824 0.398782 6.24829 1.17307C4.68798 1.94753 3.32883 3.07374 2.27792 4.46297C1.22702 5.8522 0.513074 7.46649 0.192341 9.17864C-0.128391 10.8908 -0.0471499 12.654 0.429665 14.3295C0.906481 16.0049 1.76584 17.5467 2.94004 18.8334C4.11424 20.1201 5.57119 21.1166 7.19611 21.7443C8.82102 22.372 10.5695 22.6137 12.3038 22.4506C13.9002 22.3004 15.4444 21.8108 16.8336 21.0166L22.9456 23.9272C23.2323 24.0637 23.5739 24.0049 23.7984 23.7804C24.0229 23.5559 24.0817 23.2143 23.9452 22.9276L21.0347 16.8148C21.9595 15.1986 22.4692 13.3757 22.5148 11.5098C22.5639 9.50531 22.0756 7.52426 21.1007 5.77219C20.1257 4.02012 18.6997 2.56088 16.9705 1.54589C15.2417 0.531107 13.2728 -0.00262451 11.2682 5.43045e-05Z"
+      fill="#007272"
+    />
+    <circle cx="11" cy="6.5" r="0.5" fill="white" stroke="white" />
+    <path
+      d="M13.75 16H13C12.1716 16 11.5 15.3284 11.5 14.5V10.75C11.5 10.3358 11.1642 10 10.75 10H10"
+      stroke="white"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
     />
   </svg>
 )
+
 InfoIcon.propTypes = {
   title: PropTypes.string,
 }
+
 InfoIcon.defaultProps = {
   title: 'info',
 }
