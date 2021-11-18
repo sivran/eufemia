@@ -1,12 +1,21 @@
 ---
-title: 'Known issues'
+title: 'FAQ'
+order: 7
+icon: 'helper_classes'
 ---
 
-# Known issues
+# Frequently Asked Questions (FAQ)
 
-## Dependencies
+## How to enable lint-staged?
 
-## node-sass vs sass
+Create a file called `.env.local` in the root of the repo (side-by-side to the .git folder), and put `LINT_STAGED=1` inside:
+
+```bash
+# File: .env.local
+LINT_STAGED=1
+```
+
+## Issue: node-sass vs sass
 
 The Portal (documentations) uses dart based `sass`, while the bundle and build process of the package `@dnb/eufemia` uses `node-sass` – because:
 
@@ -29,9 +38,9 @@ The Portal (documentations) uses dart based `sass`, while the bundle and build p
 
 - v14 has changed a good amount of their default styling rules. Updating would require us to refactor a good amount of SCSS code. We are currently on v13.
 
-## Storybook
+## Issue: Storybook
 
-The sandbox Storybook setup is using the default `@storybook/preset-scss` addon with the recommended dependencies. But for some reason, we cant use the latest versions of the following dependencies:
+The sandbox Storybook setup is using the default `@storybook/preset-scss` addon with the recommended dependencies. But for some reason, we can't use the latest versions of the following dependencies:
 
 - `sass-loader` v10.2.0
 - `style-loader` v2.0.0
@@ -41,7 +50,7 @@ We get else this error:
 
 > Type Error: this.getOptions is not a function for style-loader
 
-## Yarn PnP
+## Issue: Yarn PnP
 
 Currently, Eufemia uses yarn v3 with `node_modules`.
 

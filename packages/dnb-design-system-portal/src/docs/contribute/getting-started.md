@@ -1,31 +1,48 @@
 ---
-title: 'Make Changes'
-draft: true
-order: 1
+title: 'Getting started'
+icon: 'tools'
+order: 3
+status: 'wip'
 ---
 
-# Making changes
+# Getting started
 
-Here are typical steps when making changes:
+You are now ready to get started. Here you will find a step-by-step guide to making changes in the Eufemia repo.
+If you are new to the repository, check out [what I should know before getting started](/contribute/first-contribution#what-should-i-know-before-getting-started).
 
-1. If you don't have commit access: create a Fork of the repo: [Eufemia on GitHub](https://github.com/dnbexperience/eufemia) – check out your fork.
-1. Git clone the repo.
-1. Install the dependencies: `yarn install`
-1. Make your changes.
-1. Run the integration tests: `yarn test` – you may need to update changed snapshots: `yarn test:update`
-1. Start the portal: `yarn workspace dnb-design-system-portal start`
-1. Runt the visual test against it: `yarn test:screenshots`
-1. Check the result / reports, located in: `open ./packages/dnb-eufemia/jest-screenshot-report/index.html`
-1. Update eventually new or valid PNG snapshots by running: `yarn test:screenshots:update`
-1. [Commit your change](/contribution/commit) and create a Pull Request to the `origin/main` branch.
+**Skip to step**:
 
-## Change logs
+1. [Get the repository on your local computer](/contribute/getting-started#1-get-the-repo-on-your-local-computer)
+1. [Install dependencies](/contribute/getting-started#2-install-the-dependencies)
+1. [Making changes](/contribute/getting-started#3-get-started-on-making-new-components-elements-and-extensions)
+1. [Make and run tests](/contribute/getting-started#4-make-and-run-tests)
+1. (Optional): [Update the EUFEMIA_CHANGELOG.md with your changes](/contribute/getting-started#5-update-change-logs)
+1. [Commit your change and create a Pull Request](/contribute/getting-started#6-commit-changes)
 
-Changes to `@dnb/eufemia` have to be mentioned by using a [git commit messages decoration](/contribution/commit#commit-messages). During next release, a `CHANGELOG.md` file will be generated and changes will get listed on the [GitHub Releases](https://github.com/dnbexperience/eufemia/releases) page.
+## 1. Get the repo on your local computer
 
-General Eufemia **Design System** changes have to be written down in the `EUFEMIA_CHANGELOG.md` file, located in the repository root.
+Locate the repo: [Eufemia on GitHub](https://github.com/dnbexperience/eufemia).
 
-## Get started on making new Components, Elements and Extensions
+If you don't have commit access;
+
+- Create a Fork.
+- Make your changes in your Fork and create a _Pull Request_ back to the Eufemia repo and `origin/main`.
+- Watch the result of the tests.
+
+If you have commit access;
+
+- Make a new branch.
+- Make your changes and commit it to the repo.
+- Make a _Pull Request_ to `origin/main`.
+- Watch the result of the tests.
+
+## 2. Install the dependencies
+
+```bash
+yarn install
+```
+
+## 3. Get started on making new Components, Elements and Extensions
 
 Make a new working branch and name it e.g. `fix/my-branch-name` or `feat/my-feature-name`.
 
@@ -48,40 +65,6 @@ $ yarn build
 
 You find the output in the `./packages/dnb-eufemia/build` folder.
 
-#### What happens in the build steps
-
-During the build, a lot of various things will happen, like:
-
-**Prebuild**
-
-```bash
-$ yarn build
-```
-
-- Assets are getting generated
-- All index and lib files are getting generated
-- All the lib code gets compiled (ECMAScript 6 and ECMAScript 5.1)
-- All SASS styles are validated and compiled (to support IE)
-- All bundles gets minified
-- Icons are getting converted
-
-To use the local build, you can either run the portal, or use `yarn link` to link the package with a totally different project.
-
-**Postbuild**
-
-```bash
-$ yarn workspace @dnb/eufemia postbuild:ci
-```
-
-- Assets are getting generated
-- All the lib code gets compiled (ECMAScript 6 and ECMAScript 5.1)
-- UMD/ESM/ES/CJS bundles are getting generated
-- TypdeScript definitions are getting generated
-
-### Development
-
-You can also use Storybook and create a new story dedicated to your new feature. Run `yarn dev` to start Storybook.
-
 ### Documentation
 
 All components hare their own directory inside:
@@ -90,25 +73,7 @@ All components hare their own directory inside:
 
 You may have a look at existing docs in order to get the right structure.
 
-### About React Components
-
-Many components are based on React Class Components (because hooks did no exists at some point). But;
-
-Use [React Hooks](https://reactjs.org/docs/hooks-overview.html) over React class components when possible.
-
-Also, use [Typescript](https://www.typescriptlang.org), even most of the components do use PropTypes to generated type definition files only.
-
-### How Components are structured
-
-Eufemia has a couple of common parts, so every component do behave consistent:
-
-- [Locale](https://eufemia.dnb.no/uilib/usage/customisation/localization) support
-- [Provider](https://eufemia.dnb.no/uilib/usage/customisation/provider) support for centralized property forwarding
-- [Spacing](https://eufemia.dnb.no/uilib/components/space) support
-- [Skeleton](https://eufemia.dnb.no/uilib/components/skeleton) support
-- [FormRow](https://eufemia.dnb.no/uilib/components/form-row) / [FormSet](https://eufemia.dnb.no/uilib/components/form-set) / [FormLabel](https://eufemia.dnb.no/uilib/components/form-label) support if its a form component
-- Automatic id generation and linking of HTML elements to enhance accessibility
-- Handling of `aria-describedby` with `combineDescribedBy` etc.
+### Additional support
 
 #### Locale support
 
@@ -284,3 +249,21 @@ Use the same sass setup as all the other components. You may re-use all the [hel
 
 - `./packages/dnb-eufemia/src/style/core/utilities.scss`
 - `./packages/dnb-eufemia/src/style/core/properties.scss`
+
+## 4. Make and run tests
+
+1. Run the integration tests: `yarn test` – you may need to update changed snapshots: `yarn test:update`
+1. Start the portal: `yarn workspace dnb-design-system-portal start`
+1. Run the visual test against it: `yarn test:screenshots`
+1. Check the result / reports, located in: `open ./packages/dnb-eufemia/jest-screenshot-report/index.html`
+1. Update eventually new or valid PNG snapshots by running: `yarn test:screenshots:update`
+
+## 5. Update change logs
+
+Changes to `@dnb/eufemia` have to be mentioned by using a [git commit messages decoration](/contribute/commit#commit-messages). During next release, a `CHANGELOG.md` file will be generated and changes will get listed on the [GitHub Releases](https://github.com/dnbexperience/eufemia/releases) page.
+
+General Eufemia **Design System** changes have to be written down in the `EUFEMIA_CHANGELOG.md` file, located in the repository root.
+
+## 6. Commit changes
+
+1. [Commit your change](/contribute/commit) and create a Pull Request to the `origin/main` branch.
